@@ -1,4 +1,4 @@
-"""Подготовка FP16/INT8/INT4 и проверка генерации в отдельных процессах."""
+"""Подготовка FP16/INT8/INT4 и проверка генерации в отдельных процессах"""
 import argparse
 from pathlib import Path
 import subprocess
@@ -19,7 +19,7 @@ def main():
     def run(script, *extra):
         subprocess.run([sys.executable, str(ROOT / 'scripts' / script),
                         '--model', args.model, *extra], cwd=ROOT, check=True)
-    # Первый вызов скачивает исходную модель, остальные используют локальные веса.
+    # Первый вызов скачивает исходную модель, остальные используют локальные веса
     run('smoke_mlx.py')
     for bits in (8, 4):
         run('quantize_mlx.py', '--bits', str(bits))

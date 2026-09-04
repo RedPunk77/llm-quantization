@@ -1,4 +1,4 @@
-"""Общий список моделей и имена каталогов с весами."""
+"""Общий список моделей и имена каталогов с весами"""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -9,7 +9,7 @@ MODELS = {
 
 
 def add_model_argument(parser):
-    # Старые команды продолжают работать со SmolLM2; Qwen выбирается явно.
+    # Старые команды продолжают работать со SmolLM2; Qwen выбирается явно
     parser.add_argument('--model', choices=MODELS, default='smollm2-135m')
 
 

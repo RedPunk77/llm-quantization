@@ -1,4 +1,4 @@
-"""Измеряем batch=1 с синхронизацией GPU после каждого greedy-токена."""
+"""Измеряем batch=1 с синхронизацией GPU после каждого greedy-токена"""
 import argparse
 from datetime import datetime, timezone
 import hashlib
@@ -34,7 +34,7 @@ def summarize(rows):
 
 
 def measure(model, prompt, output_tokens, mx, make_cache):
-    # У каждого запуска свой KV-cache: префикс не переиспользуется между измерениями.
+    # У каждого запуска свой KV-cache: префикс не переиспользуется между измерениями
     cache = make_cache(model)
     mx.synchronize()
     mx.reset_peak_memory()
@@ -55,7 +55,7 @@ def measure(model, prompt, output_tokens, mx, make_cache):
         del logits
     end = perf_counter()
     peak = mx.get_peak_memory()
-    # Перенос в Python не входит во время. EOS не останавливает цикл: длина фиксирована.
+    # Перенос в Python не входит во время EOS не останавливает цикл: длина фиксирована
     ids = [int(t.item()) for t in tokens]
     return {'ttft_seconds': first - start,
             'decode_tokens_per_second': (output_tokens - 1) / (end - first),
@@ -84,7 +84,7 @@ def worker(args):
     elif not quant or quant.get('bits') != int(args.format[3:]) or quant.get('group_size') != 64 or quant.get('mode', 'affine') != 'affine':
         raise ValueError('Unexpected quantization configuration')
     del params
-    # Повторяем текст ради фиксированной длины. Для оценки качества этот вход не используется.
+    # Повторяем текст ради фиксированной длины Для оценки качества этот вход не используется
     text = 'A computer stores information and performs calculations. '
     ids = tokenizer.encode(text * (args.input_tokens + 1), add_special_tokens=False)[:args.input_tokens]
     if len(ids) != args.input_tokens:

@@ -1,4 +1,4 @@
-"""Потоковое продолжение текста локальной моделью через MLX."""
+"""Потоковое продолжение текста локальной моделью через MLX"""
 import argparse
 import math
 import sys
@@ -28,7 +28,7 @@ def main():
     from mlx_lm.sample_utils import make_sampler
     mx.random.seed(args.seed)
     model, tokenizer = load(str(path))
-    # Обе модели — base: продолжаем текст без шаблона чата и system prompt.
+    # Обе модели — base: продолжаем текст без шаблона чата и system prompt
     ids = tokenizer.encode(args.prompt, add_special_tokens=False)
     last = None
     for response in stream_generate(model, tokenizer, prompt=ids,

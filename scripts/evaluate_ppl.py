@@ -1,4 +1,4 @@
-"""Сравниваем perplexity на фрагменте WikiText-2 с перекрывающимися окнами."""
+"""Сравниваем perplexity на фрагменте WikiText-2 с перекрывающимися окнами"""
 import argparse
 from datetime import datetime, timezone
 import hashlib
@@ -20,7 +20,7 @@ os.environ.setdefault('HF_HOME', str(ROOT / '.cache/huggingface'))
 
 
 def windows(length, context, stride):
-    """Возвращаем границы окна и первую цель; токены 1..length-1 учитываем один раз."""
+    """Возвращаем границы окна и первую цель; токены 1..length-1 учитываем один раз"""
     if length < 2 or context < 2 or not 1 <= stride < context:
         raise ValueError('Require length/context >=2 and 1 <= stride < context')
     previous_end = 1
@@ -90,7 +90,7 @@ def worker(args):
     save()
     try:
         for index, (start, end, first) in enumerate(windows(len(ids), args.context, args.stride)):
-            # Позиция p предсказывает p+1; цели из перекрывающегося контекста повторно не считаем.
+            # Позиция p предсказывает p+1; цели из перекрывающегося контекста повторно не считаем
             logits = model(mx.array([ids[start:end-1]]))
             scores = logits[0, first-start-1:, :].astype(mx.float32)
             targets = mx.array(ids[first:end])

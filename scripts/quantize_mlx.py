@@ -1,4 +1,4 @@
-"""Создаём affine INT8/INT4 из локальной FP16-модели."""
+"""Создаём affine INT8/INT4 из локальной FP16-модели"""
 import argparse
 import json
 from pathlib import Path

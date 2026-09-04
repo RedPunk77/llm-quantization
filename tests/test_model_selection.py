@@ -1,4 +1,4 @@
-"""Проверяем выбор модели и передачу его дочерним процессам без GPU."""
+"""Проверяем выбор модели и передачу его дочерним процессам без GPU"""
 from pathlib import Path
 import unittest
 from unittest.mock import patch

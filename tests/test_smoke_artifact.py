@@ -1,4 +1,4 @@
-"""Проверки сохранения выбранной ревизии без GPU и сети."""
+"""Проверки сохранения выбранной ревизии без GPU и сети"""
 import json
 from pathlib import Path
 import tempfile

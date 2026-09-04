@@ -1,4 +1,4 @@
-"""Один проверочный запуск FP16 или квантованной модели без оценки устойчивой скорости."""
+"""Один проверочный запуск FP16 или квантованной модели без оценки устойчивой скорости"""
 import os
 from pathlib import Path
 
@@ -22,7 +22,7 @@ from time import perf_counter
 
 
 def prepare_artifact(artifact, repo, revision, convert_fn, snapshot_fn):
-    """Конвертируем локальную ревизию; готовой считаем только полностью сохранённую модель."""
+    """Конвертируем локальную ревизию; готовой считаем только полностью сохранённую модель"""
     provenance = artifact / 'source_revision.json'
     if provenance.is_file():
         source = json.loads(provenance.read_text())
@@ -30,7 +30,7 @@ def prepare_artifact(artifact, repo, revision, convert_fn, snapshot_fn):
             raise ValueError('Local artifact differs from requested source')
         return source
 
-    # Передаём локальный путь: при сохранении MLX не должен повторно искать ветку main.
+    # Передаём локальный путь: при сохранении MLX не должен повторно искать ветку main
     snapshot = Path(snapshot_fn(repo_id=repo, revision=revision, allow_patterns=[
         '*.safetensors', '*.json', '*.model', '*.tiktoken', '*.txt', '*.jinja',
     ]))
