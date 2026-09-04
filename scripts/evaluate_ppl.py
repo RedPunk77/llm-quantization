@@ -38,6 +38,35 @@ def digest(value):
     return hashlib.sha256(json.dumps(value, separators=(',', ':')).encode()).hexdigest()
 
 
+def wilson_interval(correct, total, z=1.96):
+    """95% Wilson interval для доли правильных предсказаний"""
+    if total <= 0 or not 0 <= correct <= total:
+        raise ValueError('Некорректные correct/total')
+    p = correct / total
+    denominator = 1 + z * z / total
+    center = (p + z * z / (2 * total)) / denominator
+    radius = z * math.sqrt(p * (1 - p) / total + z * z / (4 * total * total)) / denominator
+    return center - radius, center + radius
+
+
+def paired_retention_interval(baseline, candidate, samples=10000, seed=42):
+    """Парный bootstrap CI для отношения accuracy candidate / accuracy FP16"""
+    if len(baseline) != len(candidate) or not baseline or sum(baseline) == 0:
+        raise ValueError('Нужны парные результаты и ненулевая accuracy FP16')
+    import numpy as np
+    # Для пары бинарных исходов достаточно четырёх совместных частот
+    counts = [0, 0, 0, 0]
+    for base, current in zip(baseline, candidate):
+        counts[2 * int(bool(base)) + int(bool(current))] += 1
+    rng = np.random.default_rng(seed)
+    draws = rng.multinomial(len(baseline), np.asarray(counts) / len(baseline), size=samples)
+    base_correct = draws[:, 2] + draws[:, 3]
+    current_correct = draws[:, 1] + draws[:, 3]
+    ratios = current_correct[base_correct > 0] / base_correct[base_correct > 0]
+    low, high = np.quantile(ratios, [0.025, 0.975])
+    return float(low), float(high)
+
+
 def prepare(directory, limit, model='smollm2-135m'):
     from huggingface_hub import hf_hub_download
     import pyarrow.parquet as pq
@@ -80,6 +109,7 @@ def worker(args):
     result = {'status': 'running', 'format': args.format, 'source': source,
               'tokens_sha256': corpus['tokens_sha256'], 'context': args.context,
               'stride': args.stride, 'scored_tokens': 0, 'nll_sum': 0.0,
+              'top1_correct': 0, 'top1_correct_by_token': [],
               'config': json.loads((path / 'config.json').read_text()),
               'versions': {p: importlib.metadata.version(p) for p in ('mlx', 'mlx-lm', 'transformers', 'pyarrow')},
               'script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
@@ -96,6 +126,7 @@ def worker(args):
             targets = mx.array(ids[first:end])
             selected = mx.take_along_axis(scores, targets[:, None], axis=-1).squeeze(-1)
             loss_sum = mx.sum(mx.logsumexp(scores, axis=-1) - selected)
+            correct = (mx.argmax(scores, axis=-1) == targets).tolist()
             value = float(loss_sum.item())
             if not math.isfinite(value):
                 raise ValueError('Nonfinite NLL')
@@ -104,6 +135,8 @@ def worker(args):
                                       'scored_tokens': count, 'nll_sum': value})
             result['nll_sum'] += value
             result['scored_tokens'] += count
+            result['top1_correct'] += sum(correct)
+            result['top1_correct_by_token'].extend(bool(item) for item in correct)
             del logits, scores, targets, selected, loss_sum
             save()
             if index % 10 == 0:
@@ -112,6 +145,9 @@ def worker(args):
             raise ValueError('Missing or duplicated target tokens')
         result['mean_nll'] = result['nll_sum'] / result['scored_tokens']
         result['perplexity'] = math.exp(result['mean_nll'])
+        result['top1_accuracy'] = result['top1_correct'] / result['scored_tokens']
+        result['top1_accuracy_wilson_95'] = wilson_interval(
+            result['top1_correct'], result['scored_tokens'])
         result['status'] = 'complete'
         save()
     except Exception as exc:
@@ -150,14 +186,26 @@ def main():
         runs.append(json.loads((directory / (fmt + '.json')).read_text()))
     lines = [f'# {corpus["model_source"]["repo"]}: WikiText-2 test-prefix perplexity', '',
              f'{len(corpus["token_ids"])-1} scored tokens; context={args.context}, stride={args.stride}.', '',
-             '| Format | Mean NLL | Perplexity (lower is better) | PPL change vs FP16 |',
+             '| Format | Perplexity | Top-1 accuracy (95% CI) | Quality retention vs FP16 (95% paired bootstrap CI) |',
              '|---|---:|---:|---:|']
     for run in runs:
         if run['status'] != 'complete' or run['scored_tokens'] != runs[0]['scored_tokens']:
             raise ValueError('Incomplete or incomparable results')
         change = run['perplexity'] / runs[0]['perplexity'] - 1
-        lines.append(f'| {run["format"]} | {run["mean_nll"]:.4f} | {run["perplexity"]:.3f} | {change:+.2%} |')
-    lines += ['', 'PPL change is not a percentage of quality retained. No task accuracy measured.',
+        accuracy_ci = run['top1_accuracy_wilson_95']
+        if run['format'] == 'fp16':
+            retention = (1.0, 1.0, 1.0)
+        else:
+            low, high = paired_retention_interval(
+                runs[0]['top1_correct_by_token'], run['top1_correct_by_token'])
+            retention = (run['top1_accuracy'] / runs[0]['top1_accuracy'], low, high)
+        lines.append(
+            f'| {run["format"]} | {run["perplexity"]:.3f} ({change:+.2%}) | '
+            f'{run["top1_accuracy"]:.2%} ({accuracy_ci[0]:.2%}–{accuracy_ci[1]:.2%}) | '
+            f'{retention[0]:.2%} ({retention[1]:.2%}–{retention[2]:.2%}) |')
+    lines += ['', 'Quality retention здесь означает отношение next-token top-1 accuracy к FP16.',
+              'Это узкая языковая метрика на WikiText-2, а не процент всех способностей модели.',
+              'PPL change is not a percentage of quality retained.',
               'This fixed prefix is a pilot, not a full-corpus published benchmark score.',
               'Use validation data for tuning; do not tune configurations on this test result.',
               'Possible model pretraining overlap with WikiText is not ruled out.',

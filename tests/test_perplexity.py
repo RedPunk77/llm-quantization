@@ -1,5 +1,5 @@
 import unittest
-from scripts.evaluate_ppl import windows
+from scripts.evaluate_ppl import paired_retention_interval, wilson_interval, windows
 
 
 class WindowTests(unittest.TestCase):
@@ -17,3 +17,13 @@ class WindowTests(unittest.TestCase):
     def test_invalid_stride(self):
         with self.assertRaises(ValueError):
             list(windows(20, 8, 8))
+
+    def test_wilson_interval_contains_observed_accuracy(self):
+        low, high = wilson_interval(70, 100)
+        self.assertLess(low, .7)
+        self.assertGreater(high, .7)
+
+    def test_identical_predictions_retain_all_quality(self):
+        values = [True, False, True, True, False] * 20
+        low, high = paired_retention_interval(values, values, samples=500)
+        self.assertEqual((low, high), (1.0, 1.0))
