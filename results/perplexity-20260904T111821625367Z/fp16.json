@@ -1,0 +1,494 @@
+{
+  "status": "complete",
+  "format": "fp16",
+  "source": {
+    "repo": "HuggingFaceTB/SmolLM2-135M",
+    "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2"
+  },
+  "tokens_sha256": "a3bbfb17ea193d93077ef5783c38110f24592b721d7bc982112edf796efc9368",
+  "context": 512,
+  "stride": 256,
+  "scored_tokens": 16383,
+  "nll_sum": 44883.810638427734,
+  "config": {
+    "architectures": [
+      "LlamaForCausalLM"
+    ],
+    "attention_bias": false,
+    "attention_dropout": 0.0,
+    "bos_token_id": 0,
+    "eos_token_id": 0,
+    "hidden_act": "silu",
+    "hidden_size": 576,
+    "initializer_range": 0.041666666666666664,
+    "intermediate_size": 1536,
+    "is_llama_config": true,
+    "max_position_embeddings": 8192,
+    "model_type": "llama",
+    "num_attention_heads": 9,
+    "num_hidden_layers": 30,
+    "num_key_value_heads": 3,
+    "pretraining_tp": 1,
+    "rms_norm_eps": 1e-05,
+    "rope_interleaved": false,
+    "rope_scaling": null,
+    "rope_theta": 100000,
+    "tie_word_embeddings": true,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.40.1",
+    "use_cache": true,
+    "vocab_size": 49152
+  },
+  "versions": {
+    "mlx": "0.32.2",
+    "mlx-lm": "0.31.3",
+    "transformers": "5.16.1",
+    "pyarrow": "25.0.1"
+  },
+  "script_sha256": "9f62965f7bb02d777b722879376542df0e4825109e9f10ce63ef5c73622b6b27",
+  "windows": [
+    {
+      "start": 0,
+      "end": 512,
+      "first_target": 1,
+      "scored_tokens": 511,
+      "nll_sum": 1426.3680419921875
+    },
+    {
+      "start": 256,
+      "end": 768,
+      "first_target": 512,
+      "scored_tokens": 256,
+      "nll_sum": 715.4789428710938
+    },
+    {
+      "start": 512,
+      "end": 1024,
+      "first_target": 768,
+      "scored_tokens": 256,
+      "nll_sum": 831.5492553710938
+    },
+    {
+      "start": 768,
+      "end": 1280,
+      "first_target": 1024,
+      "scored_tokens": 256,
+      "nll_sum": 776.4795532226562
+    },
+    {
+      "start": 1024,
+      "end": 1536,
+      "first_target": 1280,
+      "scored_tokens": 256,
+      "nll_sum": 692.1111450195312
+    },
+    {
+      "start": 1280,
+      "end": 1792,
+      "first_target": 1536,
+      "scored_tokens": 256,
+      "nll_sum": 787.2781372070312
+    },
+    {
+      "start": 1536,
+      "end": 2048,
+      "first_target": 1792,
+      "scored_tokens": 256,
+      "nll_sum": 716.1990966796875
+    },
+    {
+      "start": 1792,
+      "end": 2304,
+      "first_target": 2048,
+      "scored_tokens": 256,
+      "nll_sum": 728.7340087890625
+    },
+    {
+      "start": 2048,
+      "end": 2560,
+      "first_target": 2304,
+      "scored_tokens": 256,
+      "nll_sum": 689.8251953125
+    },
+    {
+      "start": 2304,
+      "end": 2816,
+      "first_target": 2560,
+      "scored_tokens": 256,
+      "nll_sum": 639.4668579101562
+    },
+    {
+      "start": 2560,
+      "end": 3072,
+      "first_target": 2816,
+      "scored_tokens": 256,
+      "nll_sum": 744.265869140625
+    },
+    {
+      "start": 2816,
+      "end": 3328,
+      "first_target": 3072,
+      "scored_tokens": 256,
+      "nll_sum": 762.197265625
+    },
+    {
+      "start": 3072,
+      "end": 3584,
+      "first_target": 3328,
+      "scored_tokens": 256,
+      "nll_sum": 735.1121826171875
+    },
+    {
+      "start": 3328,
+      "end": 3840,
+      "first_target": 3584,
+      "scored_tokens": 256,
+      "nll_sum": 721.8416748046875
+    },
+    {
+      "start": 3584,
+      "end": 4096,
+      "first_target": 3840,
+      "scored_tokens": 256,
+      "nll_sum": 775.5823364257812
+    },
+    {
+      "start": 3840,
+      "end": 4352,
+      "first_target": 4096,
+      "scored_tokens": 256,
+      "nll_sum": 803.13134765625
+    },
+    {
+      "start": 4096,
+      "end": 4608,
+      "first_target": 4352,
+      "scored_tokens": 256,
+      "nll_sum": 827.5509033203125
+    },
+    {
+      "start": 4352,
+      "end": 4864,
+      "first_target": 4608,
+      "scored_tokens": 256,
+      "nll_sum": 919.9528198242188
+    },
+    {
+      "start": 4608,
+      "end": 5120,
+      "first_target": 4864,
+      "scored_tokens": 256,
+      "nll_sum": 826.6856689453125
+    },
+    {
+      "start": 4864,
+      "end": 5376,
+      "first_target": 5120,
+      "scored_tokens": 256,
+      "nll_sum": 740.4966430664062
+    },
+    {
+      "start": 5120,
+      "end": 5632,
+      "first_target": 5376,
+      "scored_tokens": 256,
+      "nll_sum": 769.0701904296875
+    },
+    {
+      "start": 5376,
+      "end": 5888,
+      "first_target": 5632,
+      "scored_tokens": 256,
+      "nll_sum": 753.098876953125
+    },
+    {
+      "start": 5632,
+      "end": 6144,
+      "first_target": 5888,
+      "scored_tokens": 256,
+      "nll_sum": 773.6239013671875
+    },
+    {
+      "start": 5888,
+      "end": 6400,
+      "first_target": 6144,
+      "scored_tokens": 256,
+      "nll_sum": 759.172607421875
+    },
+    {
+      "start": 6144,
+      "end": 6656,
+      "first_target": 6400,
+      "scored_tokens": 256,
+      "nll_sum": 756.4185180664062
+    },
+    {
+      "start": 6400,
+      "end": 6912,
+      "first_target": 6656,
+      "scored_tokens": 256,
+      "nll_sum": 961.1248779296875
+    },
+    {
+      "start": 6656,
+      "end": 7168,
+      "first_target": 6912,
+      "scored_tokens": 256,
+      "nll_sum": 895.1304931640625
+    },
+    {
+      "start": 6912,
+      "end": 7424,
+      "first_target": 7168,
+      "scored_tokens": 256,
+      "nll_sum": 646.5733032226562
+    },
+    {
+      "start": 7168,
+      "end": 7680,
+      "first_target": 7424,
+      "scored_tokens": 256,
+      "nll_sum": 851.2838745117188
+    },
+    {
+      "start": 7424,
+      "end": 7936,
+      "first_target": 7680,
+      "scored_tokens": 256,
+      "nll_sum": 631.4432373046875
+    },
+    {
+      "start": 7680,
+      "end": 8192,
+      "first_target": 7936,
+      "scored_tokens": 256,
+      "nll_sum": 876.7542724609375
+    },
+    {
+      "start": 7936,
+      "end": 8448,
+      "first_target": 8192,
+      "scored_tokens": 256,
+      "nll_sum": 825.4500732421875
+    },
+    {
+      "start": 8192,
+      "end": 8704,
+      "first_target": 8448,
+      "scored_tokens": 256,
+      "nll_sum": 490.3419189453125
+    },
+    {
+      "start": 8448,
+      "end": 8960,
+      "first_target": 8704,
+      "scored_tokens": 256,
+      "nll_sum": 540.7310180664062
+    },
+    {
+      "start": 8704,
+      "end": 9216,
+      "first_target": 8960,
+      "scored_tokens": 256,
+      "nll_sum": 806.7638549804688
+    },
+    {
+      "start": 8960,
+      "end": 9472,
+      "first_target": 9216,
+      "scored_tokens": 256,
+      "nll_sum": 754.6566772460938
+    },
+    {
+      "start": 9216,
+      "end": 9728,
+      "first_target": 9472,
+      "scored_tokens": 256,
+      "nll_sum": 921.9156494140625
+    },
+    {
+      "start": 9472,
+      "end": 9984,
+      "first_target": 9728,
+      "scored_tokens": 256,
+      "nll_sum": 698.7157592773438
+    },
+    {
+      "start": 9728,
+      "end": 10240,
+      "first_target": 9984,
+      "scored_tokens": 256,
+      "nll_sum": 735.3575439453125
+    },
+    {
+      "start": 9984,
+      "end": 10496,
+      "first_target": 10240,
+      "scored_tokens": 256,
+      "nll_sum": 731.00927734375
+    },
+    {
+      "start": 10240,
+      "end": 10752,
+      "first_target": 10496,
+      "scored_tokens": 256,
+      "nll_sum": 649.3201293945312
+    },
+    {
+      "start": 10496,
+      "end": 11008,
+      "first_target": 10752,
+      "scored_tokens": 256,
+      "nll_sum": 588.1514282226562
+    },
+    {
+      "start": 10752,
+      "end": 11264,
+      "first_target": 11008,
+      "scored_tokens": 256,
+      "nll_sum": 602.233642578125
+    },
+    {
+      "start": 11008,
+      "end": 11520,
+      "first_target": 11264,
+      "scored_tokens": 256,
+      "nll_sum": 752.4154663085938
+    },
+    {
+      "start": 11264,
+      "end": 11776,
+      "first_target": 11520,
+      "scored_tokens": 256,
+      "nll_sum": 604.379150390625
+    },
+    {
+      "start": 11520,
+      "end": 12032,
+      "first_target": 11776,
+      "scored_tokens": 256,
+      "nll_sum": 554.68212890625
+    },
+    {
+      "start": 11776,
+      "end": 12288,
+      "first_target": 12032,
+      "scored_tokens": 256,
+      "nll_sum": 551.7841796875
+    },
+    {
+      "start": 12032,
+      "end": 12544,
+      "first_target": 12288,
+      "scored_tokens": 256,
+      "nll_sum": 483.05706787109375
+    },
+    {
+      "start": 12288,
+      "end": 12800,
+      "first_target": 12544,
+      "scored_tokens": 256,
+      "nll_sum": 543.7174072265625
+    },
+    {
+      "start": 12544,
+      "end": 13056,
+      "first_target": 12800,
+      "scored_tokens": 256,
+      "nll_sum": 463.41552734375
+    },
+    {
+      "start": 12800,
+      "end": 13312,
+      "first_target": 13056,
+      "scored_tokens": 256,
+      "nll_sum": 623.2623291015625
+    },
+    {
+      "start": 13056,
+      "end": 13568,
+      "first_target": 13312,
+      "scored_tokens": 256,
+      "nll_sum": 569.8663940429688
+    },
+    {
+      "start": 13312,
+      "end": 13824,
+      "first_target": 13568,
+      "scored_tokens": 256,
+      "nll_sum": 474.3714294433594
+    },
+    {
+      "start": 13568,
+      "end": 14080,
+      "first_target": 13824,
+      "scored_tokens": 256,
+      "nll_sum": 414.7017822265625
+    },
+    {
+      "start": 13824,
+      "end": 14336,
+      "first_target": 14080,
+      "scored_tokens": 256,
+      "nll_sum": 600.0340576171875
+    },
+    {
+      "start": 14080,
+      "end": 14592,
+      "first_target": 14336,
+      "scored_tokens": 256,
+      "nll_sum": 631.121337890625
+    },
+    {
+      "start": 14336,
+      "end": 14848,
+      "first_target": 14592,
+      "scored_tokens": 256,
+      "nll_sum": 516.67919921875
+    },
+    {
+      "start": 14592,
+      "end": 15104,
+      "first_target": 14848,
+      "scored_tokens": 256,
+      "nll_sum": 777.3800048828125
+    },
+    {
+      "start": 14848,
+      "end": 15360,
+      "first_target": 15104,
+      "scored_tokens": 256,
+      "nll_sum": 641.9288940429688
+    },
+    {
+      "start": 15104,
+      "end": 15616,
+      "first_target": 15360,
+      "scored_tokens": 256,
+      "nll_sum": 709.4295043945312
+    },
+    {
+      "start": 15360,
+      "end": 15872,
+      "first_target": 15616,
+      "scored_tokens": 256,
+      "nll_sum": 694.90283203125
+    },
+    {
+      "start": 15616,
+      "end": 16128,
+      "first_target": 15872,
+      "scored_tokens": 256,
+      "nll_sum": 753.92626953125
+    },
+    {
+      "start": 15872,
+      "end": 16384,
+      "first_target": 16128,
+      "scored_tokens": 256,
+      "nll_sum": 644.1076049804688
+    }
+  ],
+  "mean_nll": 2.7396576108421984,
+  "perplexity": 15.481683428224546
+}

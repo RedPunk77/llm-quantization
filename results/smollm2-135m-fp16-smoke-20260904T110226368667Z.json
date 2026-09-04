@@ -1,0 +1,56 @@
+{
+  "run_kind": "smoke_test_not_benchmark",
+  "timestamp_utc": "2026-09-04T11:02:26.326116+00:00",
+  "source": {
+    "repo": "HuggingFaceTB/SmolLM2-135M",
+    "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2"
+  },
+  "weight_dtype": "float16",
+  "quantization_config": null,
+  "floating_parameter_dtypes": [
+    "mlx.core.float16"
+  ],
+  "parameter_dtypes": [
+    "mlx.core.float16"
+  ],
+  "platform": "macOS-14.6-arm64-arm-64bit-Mach-O",
+  "chip": "Apple M2",
+  "python": "3.13.2",
+  "versions": {
+    "mlx": "0.32.2",
+    "mlx-lm": "0.31.3",
+    "transformers": "5.16.1",
+    "huggingface-hub": "1.30.0"
+  },
+  "prompt": "The main purpose of a computer is",
+  "prompt_token_ids": [
+    504,
+    1085,
+    3446,
+    282,
+    253,
+    2583,
+    314
+  ],
+  "max_new_tokens": 64,
+  "temperature": 0.0,
+  "batch_size": 1,
+  "warmup_runs": 0,
+  "measured_runs": 1,
+  "generated_text": "to store and retrieve information. The computer is a device that can store and retrieve information. The computer is a device that can store and retrieve information. The computer is a device that can store and retrieve information. The computer is a device that can store and retrieve information. The computer is a device that can store and retrieve",
+  "generation_tokens_backend": 64,
+  "prompt_tokens_backend": 7,
+  "backend_prompt_tokens_per_second": 83.48074742985631,
+  "backend_generation_tokens_per_second": 140.6653300028857,
+  "first_stream_response_seconds": 0.12131525203585625,
+  "generation_wall_seconds": 0.5788106676191092,
+  "mlx_peak_allocated_bytes_after_load": 283334776,
+  "weight_files_bytes": 269060109,
+  "limitations": [
+    "Single cold run; includes first-use overhead; no speedup claim.",
+    "Memory is MLX allocator peak during generation, including resident weights; excludes loading peak and is not process RSS.",
+    "First stream response timing is not a validated serving TTFT.",
+    "Throughput fields use installed MLX-LM definitions.",
+    "No quality evaluation; base model receives raw completion prompt."
+  ]
+}

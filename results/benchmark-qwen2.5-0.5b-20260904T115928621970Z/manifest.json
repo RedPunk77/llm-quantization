@@ -1,0 +1,16 @@
+{
+  "order": [
+    "int8",
+    "fp16",
+    "int4"
+  ],
+  "arguments": {
+    "input_tokens": 128,
+    "output_tokens": 128,
+    "warmup": 3,
+    "repetitions": 10,
+    "format": null,
+    "output": null,
+    "model": "qwen2.5-0.5b"
+  }
+}

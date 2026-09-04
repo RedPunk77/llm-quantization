@@ -1,0 +1,61 @@
+{
+  "run_kind": "smoke_test_not_benchmark",
+  "timestamp_utc": "2026-09-04T11:02:35.338132+00:00",
+  "source": {
+    "repo": "HuggingFaceTB/SmolLM2-135M",
+    "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2"
+  },
+  "weight_dtype": "int4_affine_packed",
+  "quantization_config": {
+    "group_size": 64,
+    "bits": 4,
+    "mode": "affine"
+  },
+  "floating_parameter_dtypes": [
+    "mlx.core.float16"
+  ],
+  "parameter_dtypes": [
+    "mlx.core.float16",
+    "mlx.core.uint32"
+  ],
+  "platform": "macOS-14.6-arm64-arm-64bit-Mach-O",
+  "chip": "Apple M2",
+  "python": "3.13.2",
+  "versions": {
+    "mlx": "0.32.2",
+    "mlx-lm": "0.31.3",
+    "transformers": "5.16.1",
+    "huggingface-hub": "1.30.0"
+  },
+  "prompt": "The main purpose of a computer is",
+  "prompt_token_ids": [
+    504,
+    1085,
+    3446,
+    282,
+    253,
+    2583,
+    314
+  ],
+  "max_new_tokens": 64,
+  "temperature": 0.0,
+  "batch_size": 1,
+  "warmup_runs": 0,
+  "measured_runs": 1,
+  "generated_text": "to compute the solution of the problem.\n\nThe problem is the problem of finding the solution of the problem.\n\nThe problem is the problem of finding the solution of the problem.\n\nThe problem is the problem of finding the solution of the problem.\n\nThe problem is the problem of finding the solution",
+  "generation_tokens_backend": 64,
+  "prompt_tokens_backend": 7,
+  "backend_prompt_tokens_per_second": 48.931459434100184,
+  "backend_generation_tokens_per_second": 156.47416452064846,
+  "first_stream_response_seconds": 0.18013904057443142,
+  "generation_wall_seconds": 0.5912485010921955,
+  "mlx_peak_allocated_bytes_after_load": 86706344,
+  "weight_files_bytes": 75789955,
+  "limitations": [
+    "Single cold run; includes first-use overhead; no speedup claim.",
+    "Memory is MLX allocator peak during generation, including resident weights; excludes loading peak and is not process RSS.",
+    "First stream response timing is not a validated serving TTFT.",
+    "Throughput fields use installed MLX-LM definitions.",
+    "No quality evaluation; base model receives raw completion prompt."
+  ]
+}
